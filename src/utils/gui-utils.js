@@ -15,6 +15,11 @@ import {
   TorusKnotGeometry,
   ShapeGeometry,
   ExtrudeGeometry,
+  WireframeGeometry,
+  TubeGeometry,
+  CustomSinCurve,
+  Vector2,
+  Shape,
 } from "three";
 import GUI from "lil-gui";
 const updateGroupGeometry = function (mesh, geometry) {
@@ -27,21 +32,48 @@ const updateGroupGeometry = function (mesh, geometry) {
   // these do not update nicely together if shared
 };
 const gui = new GUI();
-const twoPi = Math.PI * 2
-export default guis = {
-  BoxGeometry: function () {
-    updateGroupGeometry(
-      mesh,
-      new BoxGeometry(
-        data.width,
-        data.height,
-        data.depth,
-        data.widthSegments,
-        data.heightSegments,
-        data.depthSegments
-      )
-    );
+const twoPi = Math.PI * 2;
+
+const x = 0,
+  y = 0;
+
+const heartShape = new Shape();
+
+heartShape.moveTo(x + 5, y + 5);
+heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
+heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
+heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
+heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7);
+heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
+heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
+
+export const guis = {
+  BoxGeometry: function (mesh) {
+    const data = {
+      width: 15,
+      height: 15,
+      depth: 15,
+      widthSegments: 1,
+      heightSegments: 1,
+      depthSegments: 1,
+    };
+
+    function generateGeometry() {
+      updateGroupGeometry(
+        mesh,
+        new BoxGeometry(
+          data.width,
+          data.height,
+          data.depth,
+          data.widthSegments,
+          data.heightSegments,
+          data.depthSegments
+        )
+      );
+    }
+
     const folder = gui.addFolder("THREE.BoxGeometry");
+
     folder.add(data, "width", 1, 30).onChange(generateGeometry);
     folder.add(data, "height", 1, 30).onChange(generateGeometry);
     folder.add(data, "depth", 1, 30).onChange(generateGeometry);
@@ -65,6 +97,7 @@ export default guis = {
       thetaStart: 0,
       thetaLength: twoPi,
     };
+
     function generateGeometry() {
       updateGroupGeometry(
         mesh,
@@ -82,6 +115,7 @@ export default guis = {
     }
 
     const folder = gui.addFolder("THREE.CylinderGeometry");
+
     folder.add(data, "radiusTop", 0, 30).onChange(generateGeometry);
     folder.add(data, "radiusBottom", 0, 30).onChange(generateGeometry);
     folder.add(data, "height", 1, 50).onChange(generateGeometry);
