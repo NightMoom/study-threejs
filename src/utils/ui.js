@@ -11,6 +11,7 @@ import {
   Container,
   Main,
   Header,
+  Submenu,
 } from "element-ui";
 
 Vue.use(Button);
@@ -23,4 +24,5 @@ Vue.use(MenuItem);
 Vue.use(Container);
 Vue.use(Main);
 Vue.use(Header);
+Vue.use(Submenu);
 Vue.prototype.$loading = Loading.service;

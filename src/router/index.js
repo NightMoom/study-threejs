@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/Layout/index";
+import { createRoute } from "./route";
 
 Vue.use(VueRouter);
 
@@ -10,6 +11,7 @@ const routes = [
     name: "Home",
     component: Layout,
   },
+  ...createRoute,
 ];
 
 const router = new VueRouter({
