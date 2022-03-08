@@ -28,7 +28,7 @@ export default {
 <style lang="less">
 .main {
   height: calc(100vh - 60px);
-  + div {
+  > div {
     height: 100%;
     overflow: auto;
   }
